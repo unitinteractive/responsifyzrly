@@ -1,3 +1,33 @@
+/**
+ * Responsifyzrly - a (mostly) standalone library for generating appropriate images for use in responsive designs
+ *
+ * @author      R.A. Ray <robert.adam.ray@gmail.com>
+ * @copyright   2012 Unit Interactive, LLC
+ * @link        http://Responsifyzrly.com
+ * @license     http://Responsifyzrly.com/license
+ * @version     0.1
+ *
+ * MIT LICENSE
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 rspvly = {
 	options : {
@@ -15,11 +45,11 @@ rspvly = {
 	{
 		// option defaults
 		var opts 				= rspvly.options || {};
-		opts.speedTestUri 		= opts.speedTestUri || 'http://designpro.co/images/50K.jpg';
+		opts.speedTestUri 		= opts.speedTestUri || 'images/50K.jpg';
 		opts.speedTestKB 		= opts.speedTestKB || 50;
 		opts.speedTestTimeout 	= opts.speedTestTimeout || 300;
 		opts.cookieExpire 		= opts.cookieExpire || 30;
-		opts.forceRefresh 		= opts.forceRefresh || TRUE;
+		opts.forceRefresh 		= opts.forceRefresh || true;
 		
 		
 
@@ -99,7 +129,7 @@ rspvly = {
 			var cookie_value 	= '';
 			var b_cookie_found 	= false; // set boolean t/f default f
 
-			for ( i = 0; i < a_all_cookies.length; i++ )
+			for( i = 0; i < a_all_cookies.length; i++ )
 			{
 				// now we'll split apart each name=value pair
 				a_temp_cookie = a_all_cookies[i].split( '=' );
@@ -128,7 +158,7 @@ rspvly = {
 				cookie_name 	= '';
 			}
 
-			if ( ! b_cookie_found )
+			if( ! b_cookie_found )
 			{
 				return false;
 			}
@@ -138,7 +168,7 @@ rspvly = {
 
 
 		// don't do anything if there is already a cookie set
-		if ( ! getCookie())
+		if( ! getCookie() )
 		{
 			// the following algorithm is adapted from Foresight.js Copyright (c) 2012, Adam Bradley
 			// Available via the MIT license
@@ -146,7 +176,7 @@ rspvly = {
 			// modified for responsifyzrly.js by R.A. Ray
 			
 			// force that this device has a certain bandwidth
-			if ( opts.speedTestForceBandwidth ) 
+			if( opts.speedTestForceBandwidth ) 
 			{
 				endSpeedTest( opts.speedTestForceBandwidth );
 
