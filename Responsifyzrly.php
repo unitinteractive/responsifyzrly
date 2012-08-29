@@ -3,10 +3,10 @@
 /**
  * Responsifyzrly - a (mostly) standalone library for generating appropriate images for use in responsive designs
  *
- * @author      R.A. Ray <robert.adam.ray@gmail.com>
- * @copyright   2012 Unit Interactive, LLC
- * @link        http://Responsifyzrly.com
- * @license     http://Responsifyzrly.com/license
+ * @author      R.A. Ray - RobertAdamRay.com
+ * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
+ * @link        https://github.com/unitinteractive/responsifyzrly
+ * @license     
  * @version     0.1
  *
  * MIT LICENSE
@@ -45,19 +45,26 @@ class Responsifyzrly {
 	// how long to keep the images in the user's browser cache in seconds
 	const BROWSER_CACHE = 604800; // 7 days
 
+	// properties
+	public $cache_file_name;
 	public $is_image;
 	public $max_width;
 	public $quality;
-	public $src_path;
 	public $src_name;
+	public $src_path;
 	public $src_width;
+	
 
+	/**
+	 * Sets all of the above properties upon instantiation
+	 *
+	 * @param 	string
+	 * 			$orig_path is the server path to the image
+	 */
 	function __construct($orig_path)
 	{
-		$this->src_path = $orig_path;
-
-		$path_split 		= preg_split('/\\\|\//', $orig_path);
-		$path_split 		= array_reverse($path_split);
+		$this->src_path 	= $orig_path;
+		$path_split 		= array_reverse(preg_split('/\\\|\//', $orig_path));
 		$this->src_name 	= $path_split[0];
 		$this->is_image 	= TRUE;
 
@@ -69,13 +76,15 @@ class Responsifyzrly {
 			return;
 		}
 
-		// get the image width
+		// get the image dimensions
 		$this->src_width 	= $dimensions[0];
 		$this->src_height 	= $dimensions[1];
 
 		// get cookie data
 		$cookie = isset($_COOKIE['rspvly']) ? $_COOKIE['rspvly'] : FALSE;
 
+		// if the cookie doesn't exist then we won't resize
+		// but we will hedge our bets a bit by serving a medium quality image
 		if ( ! $cookie)
 		{
 			$this->max_width 	= $this->src_width;
@@ -85,14 +94,14 @@ class Responsifyzrly {
 		}
 
 		// get usable cookie data
-		$data = $this->parse_cookie($cookie);
+		$display_data = $this->parse_cookie($cookie);
 
 		// set quality
-		if ($data['bandwidth'] < self::LOW_BAND)
+		if ($display_data->bandwidth < self::LOW_BAND)
 		{
 			$this->quality = self::LOW_QUAL;
 		}
-		elseif ($data['bandwidth'] < self::MED_BAND)
+		elseif ($display_data->bandwidth < self::MED_BAND)
 		{
 			$this->quality = self::MED_QUAL;
 		}
@@ -102,37 +111,40 @@ class Responsifyzrly {
 		}
 
 		// max_width is the reported max resolution multiplied by the pixel ratio
-		$this->max_width = $data['resolution'] * $data['pixel_ratio'];
+		$this->max_width = $display_data->resolution * $display_data->pixel_ratio;
 
 		// do not enlarge the image
 		if ($this->max_width > $this->src_width)
 		{
 			$this->max_width = $this->src_width;
 		}
-	}
 
-
-
-
-
-	public function get_cache_file_name()
-	{
+		// set the name of the cache file
 		$extension = strtolower(pathinfo($this->src_path, PATHINFO_EXTENSION));
 
 		if ($extension == 'png' OR $extension == 'gif')
 		{
-			return substr_replace($this->src_name, "-$this->max_width", strrpos($this->src_name, '.'), 0);
+			$this->cache_file_name = substr_replace($this->src_name, "-$this->max_width", strrpos($this->src_name, '.'), 0);
 		}
 		else
 		{
-			return substr_replace($this->src_name, "-$this->quality-$this->max_width", strrpos($this->src_name, '.'), 0);
+			$this->cache_file_name = substr_replace($this->src_name, "-$this->quality-$this->max_width", strrpos($this->src_name, '.'), 0);
 		}
 	}
 
 
 
-
-	/* generates the given cache file for the given source file with the given resolution */
+	/**
+	 * Generates a new images with the appropriate width, height, and quality.
+	 *
+	 * Adapted from Adaptive Images by Matt Wilcox
+	 * Available via the Creative Commons Attribution 3.0 Unported License
+	 * https://github.com/MattWilcox/Adaptive-Images
+	 * Modified for Responsifyzrly by R.A. Ray
+	 *
+	 * @return 	string
+	 *			$new_image is the data for the generated image to be saved and served
+	 */
 	public function generate_cache_image()
 	{
 		$handle 		= fopen($this->src_path, 'r');
@@ -211,14 +223,23 @@ class Responsifyzrly {
 
 		ImageDestroy($dst);
 
-		//$this->cache_image = $new_image;
-
 		return $new_image;
 	}
 
 
 
 
+	/**
+	 * Serves an image to the browser from raw data.
+	 *
+	 * Adapted from Adaptive Images by Matt Wilcox
+	 * Available via the Creative Commons Attribution 3.0 Unported License
+	 * https://github.com/MattWilcox/Adaptive-Images
+	 * Modified for Responsifyzrly by R.A. Ray
+	 *
+	 * @param 	string
+	 * 			$image_string is the data for the image to be served 
+	 */
 	function show_image($image_string) 
 	{
 		$extension 	= strtolower(pathinfo($this->src_path, PATHINFO_EXTENSION));
@@ -244,6 +265,16 @@ class Responsifyzrly {
 
 
 
+	/**
+	 * Sharpen images function
+	 *
+	 * From Adaptive Images by Matt Wilcox
+	 * Available via the Creative Commons Attribution 3.0 Unported License
+	 * https://github.com/MattWilcox/Adaptive-Images
+	 *
+	 * @return 	string
+	 *			$new_image is the data for the generated image to be saved and served
+	 */
 	private function find_sharp($intOrig, $intFinal) 
 	{
 		$intFinal = $intFinal * (750.0 / $intOrig);
@@ -257,7 +288,13 @@ class Responsifyzrly {
 
 
 
-
+	/**
+	 * Parse cookie string into a usable object.
+	 *
+	 * @param 	string
+	 * 			$cookie is the raw cookie string
+	 * @return 	object
+	 */
 	private function parse_cookie($cookie)
 	{
 		$cookie = trim($cookie, '&');
@@ -275,6 +312,6 @@ class Responsifyzrly {
 			}
 		}
 
-		return $cookie;
+		return (object) $cookie;
 	}
 }

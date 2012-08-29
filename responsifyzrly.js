@@ -1,10 +1,10 @@
 /**
  * Responsifyzrly - a (mostly) standalone library for generating appropriate images for use in responsive designs
  *
- * @author      R.A. Ray <robert.adam.ray@gmail.com>
- * @copyright   2012 Unit Interactive, LLC
- * @link        http://Responsifyzrly.com
- * @license     http://Responsifyzrly.com/license
+ * @author      R.A. Ray - RobertAdamRay.com
+ * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
+ * @link        https://github.com/unitinteractive/responsifyzrly
+ * @license     
  * @version     0.1
  *
  * MIT LICENSE
@@ -29,7 +29,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-rspvly = {
+var pixelRatio = window.devicePixelRatio;
+var rspvly = {
 	options : {
 		//'speedTestTimeout' : 700,
 		//'speedTestForceBandwidth' : 49,
@@ -41,7 +42,7 @@ rspvly = {
 };
 
 ( 
-	function( rspvly, window, document )
+	function( rspvly, document )
 	{
 		// option defaults
 		var opts 				= rspvly.options || {};
@@ -57,7 +58,7 @@ rspvly = {
 		// basic properties to set in the cookie
 		var props = {
 			'resolution' 	: Math.max( screen.width, screen.height ),
-			'pixel_ratio' 	: window.devicePixelRatio ? window.devicePixelRatio : '1',
+			'pixel_ratio' 	: pixelRatio ? pixelRatio : '1'
 		};
 
 		if (opts.forceResolution)
@@ -216,6 +217,8 @@ rspvly = {
 			// begin the network connection speed test image download
 			startTime = ( new Date() ).getTime();
 
+			//speedTestUri = document.location.protocol
+
 			if ( document.location.protocol === 'https:' ) 
 			{
 				// if the current document is SSL, make sure the speed test request
@@ -223,6 +226,7 @@ rspvly = {
 				speedTestUri = speedTestUri.replace( 'http:', 'https:' );
 			}
 
+			// don't jack it up with a cached image
 			speedTestImg.src = opts.speedTestUri + "?r=" + Math.random();
 
 			// calculate the maximum number of milliseconds it 'should' take to download an XX Kbps file
@@ -239,4 +243,4 @@ rspvly = {
 		}
 	}
 )
-( this.rspvly = this.rspvly || {}, this, this.document );
+( this.rspvly = this.rspvly || {}, this.document );

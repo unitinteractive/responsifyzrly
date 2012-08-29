@@ -11,5 +11,7 @@
 <body>
 
 	<img src="./handler.php?img=/images/sky-1.jpg" alt="" style="width: 960px;" />
+	<img src="./handler.php?img=/images/sky-2.jpg" alt="" style="width: 960px;" />
+	<img src="./handler.php?img=/images/sky-3.jpg" alt="" style="width: 960px;" />
 </body>
 </html>

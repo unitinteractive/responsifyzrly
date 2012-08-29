@@ -3,10 +3,9 @@
 
 	$img 				= new Responsifyzrly($_SERVER['DOCUMENT_ROOT'].$_GET['img']);
 	$cache_dir 			= $_SERVER['DOCUMENT_ROOT'].'/images/cache/';
-	$cache_file 		= $img->get_cache_file_name();
-	$cache_image_path 	= $cache_dir.$cache_file;
+	$cache_image_loc 	= $cache_dir.$img->cache_file_name;
 
-	if ( ! is_file($cache_dir.$cache_file))
+	if ( ! is_file($cache_image_loc))
 	{
 		$cache_image = $img->generate_cache_image();
 
@@ -23,13 +22,13 @@
 			}
 		}
 
-		file_put_contents($cache_dir.$cache_file, $cache_image);
+		file_put_contents($cache_image_loc, $cache_image);
 
 		$img->show_image($cache_image);
 	}
 
-	$handle 		= fopen($cache_image_path, 'r');
-	$cache_image 	= fread($handle, filesize($cache_image_path));
+	$handle 		= fopen($cache_image_loc, 'r');
+	$cache_image 	= fread($handle, filesize($cache_image_loc));
 	
 	$img->show_image($cache_image);
 ?>
