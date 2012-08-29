@@ -7,7 +7,7 @@
  * @copyright   2012 Unit Interactive, LLC
  * @link        http://Responsifyzrly.com
  * @license     http://Responsifyzrly.com/license
- * @version     0.0.1
+ * @version     0.1
  *
  * MIT LICENSE
  *
