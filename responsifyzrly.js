@@ -75,6 +75,9 @@ rspvly = {
 			cookie += 'expires=' + expireDate.toUTCString();
 
 			document.cookie = cookie;
+
+			// refresh now that the cookie is set
+			document.location.reload(true);
 		}
 
 		
@@ -198,9 +201,6 @@ rspvly = {
 				},
 				speedTestTimeoutMS 
 			);
-
-			// refresh now that the cookie is set
-			document.location.reload(true);
 		}
 	}
 )
