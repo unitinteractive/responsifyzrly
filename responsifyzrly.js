@@ -6,6 +6,7 @@ rspvly = {
 		//'forceResolution' : 480,
 		//'forcePixelRatio' : 2,
 		//'cookieExpire' : 1,
+		//'forceRefresh' : FALSE
 	}
 };
 
@@ -18,14 +19,15 @@ rspvly = {
 		opts.speedTestKB 		= opts.speedTestKB || 50;
 		opts.speedTestTimeout 	= opts.speedTestTimeout || 300;
 		opts.cookieExpire 		= opts.cookieExpire || 30;
-
+		opts.forceRefresh 		= opts.forceRefresh || TRUE;
+		
 		
 
-		
+
 		// basic properties to set in the cookie
 		var props = {
 			'resolution' 	: Math.max( screen.width, screen.height ),
-			'pixel_ratio' 	: ( "devicePixelRatio" in window ) ? devicePixelRatio : '1',
+			'pixel_ratio' 	: window.devicePixelRatio ? window.devicePixelRatio : '1',
 		};
 
 		if (opts.forceResolution)
@@ -76,8 +78,11 @@ rspvly = {
 
 			document.cookie = cookie;
 
-			// refresh now that the cookie is set
-			document.location.reload(true);
+			if( opts.forceRefresh )
+			{
+				// refresh now that the cookie is set
+				document.location.reload(true);
+			}
 		}
 
 		
@@ -204,4 +209,4 @@ rspvly = {
 		}
 	}
 )
-( this.rspvly = this.rspvly || {}, rspvly, document );
+( this.rspvly = this.rspvly || {}, this, this.document );
