@@ -1,32 +1,17 @@
 /**
- * Responsifyzrly - a (mostly) standalone library for generating appropriate images for use in responsive designs
+ * Responsifyzrly 
+ * A library for generating appropriate images for use in responsive designs
+ * This script sets the necessary cookie for server-side processing
  *
- * @author      R.A. Ray - RobertAdamRay.com
+ * @version     0.1
  * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
+ * @author      R.A. Ray - RobertAdamRay.com
  * @link        https://github.com/unitinteractive/responsifyzrly
  * @license     
- * @version     0.1
  *
- * MIT LICENSE
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Dual licensed under the MIT license and GPL license:
+ * http://opensource.org/licenses/MIT
+ * http://www.gnu.org/licenses/gpl.html
  */
 
 var pixelRatio = window.devicePixelRatio;
@@ -82,7 +67,7 @@ var rspvly = {
 			clearTimeout( speedTimeOut );
 
 			setCookie();
-		}
+		};
 
 		
 
@@ -114,7 +99,7 @@ var rspvly = {
 				// refresh now that the cookie is set
 				document.location.reload(true);
 			}
-		}
+		};
 
 		
 
@@ -163,7 +148,7 @@ var rspvly = {
 			{
 				return false;
 			}
-		}
+		};
 
 		
 
