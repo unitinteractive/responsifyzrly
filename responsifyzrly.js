@@ -3,7 +3,7 @@
  * A library for generating appropriate images for use in responsive designs
  * This script sets the necessary cookie for server-side processing
  *
- * @version     0.1
+ * @version     X.X.X
  * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
  * @author      R.A. Ray - RobertAdamRay.com
  * @link        https://github.com/unitinteractive/responsifyzrly
@@ -17,12 +17,14 @@
 var pixelRatio = window.devicePixelRatio;
 var rspvly = {
 	options : {
-		//'speedTestTimeout' : 700,
-		//'speedTestForceBandwidth' : 49,
-		//'forceResolution' : 480,
-		//'forcePixelRatio' : 2,
-		//'cookieExpire' : 1,
-		//'forceRefresh' : FALSE
+		//'speedTestUri' : 				'images/70K.jpg',
+		//'speedTestKB' : 				70,
+		//'speedTestTimeout' : 			700,
+		//'speedTestForceBandwidth' : 	49,
+		//'cookieExpire' : 				1,
+		//'forceRefresh' : 				false,
+		//'forcePixelRatio' : 			2,
+		//'forceResolution' : 			480
 	}
 };
 
@@ -30,12 +32,13 @@ var rspvly = {
 	function( rspvly, document )
 	{
 		// option defaults
-		var opts 				= rspvly.options || {};
-		opts.speedTestUri 		= opts.speedTestUri || 'images/50K.jpg';
-		opts.speedTestKB 		= opts.speedTestKB || 50;
-		opts.speedTestTimeout 	= opts.speedTestTimeout || 300;
-		opts.cookieExpire 		= opts.cookieExpire || 30;
-		opts.forceRefresh 		= opts.forceRefresh || true;
+		var opts 				= rspvly.options 				|| {};
+		opts.speedTestUri 		= opts.speedTestUri 			|| 'images/50K.jpg';
+		opts.speedTestKB 		= opts.speedTestKB 				|| 50;
+		opts.speedTestTimeout 	= opts.speedTestTimeout 		|| 300;
+		speedTestForceBandwidth = opts.speedTestForceBandwidth 	|| false;
+		opts.cookieExpire 		= opts.cookieExpire 			|| 30;
+		opts.forceRefresh 		= opts.forceRefresh 			|| true;
 		
 		
 

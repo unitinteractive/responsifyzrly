@@ -5,15 +5,13 @@
  * A library for generating appropriate images for use in responsive designs
  * This library provideds the methods for producing and serving optimized images
  *
- * @version     0.1
+ * @version     X.X.X
  * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
  * @author      R.A. Ray - RobertAdamRay.com
  * @link        https://github.com/unitinteractive/responsifyzrly
- * @license     
- *
- * Dual licensed under the MIT license and GPL license:
- * http://opensource.org/licenses/MIT
- * http://www.gnu.org/licenses/gpl.html
+ * @license     Dual licensed under the MIT license and GPL license:
+ * 				http://opensource.org/licenses/MIT
+ * 				http://www.gnu.org/licenses/gpl.html
  */
 
 class Responsifyzrly {
@@ -79,7 +77,7 @@ class Responsifyzrly {
 		}
 
 		// get usable cookie data
-		$display_data = $this->parse_cookie($cookie);
+		$display_data = $this->_parse_cookie($cookie);
 
 		// set quality
 		if ($display_data->bandwidth < self::LOW_BAND)
@@ -166,7 +164,7 @@ class Responsifyzrly {
 			ImageDestroy($src);
 
 			// sharpen the image
-			$intSharpness 	= $this->find_sharp($this->src_width, $this->max_width);
+			$intSharpness 	= $this->_find_sharp($this->src_width, $this->max_width);
 		    $arrMatrix 		= 	array(
 							        array(-1, -2, -1),
 							        array(-2, $intSharpness + 12, -2),
@@ -225,7 +223,7 @@ class Responsifyzrly {
 	 * @param 	string
 	 * 			$image_string is the data for the image to be served 
 	 */
-	function show_image($image_string) 
+	public function show_image($image_string) 
 	{
 		$extension 	= strtolower(pathinfo($this->src_path, PATHINFO_EXTENSION));
 
@@ -260,7 +258,7 @@ class Responsifyzrly {
 	 * @return 	string
 	 *			$new_image is the data for the generated image to be saved and served
 	 */
-	private function find_sharp($intOrig, $intFinal) 
+	private function _find_sharp($intOrig, $intFinal) 
 	{
 		$intFinal = $intFinal * (750.0 / $intOrig);
 		$intA     = 52;
@@ -280,7 +278,7 @@ class Responsifyzrly {
 	 * 			$cookie is the raw cookie string
 	 * @return 	object
 	 */
-	private function parse_cookie($cookie)
+	private function _parse_cookie($cookie)
 	{
 		$cookie = trim($cookie, '&');
 		$cookie = explode('&', $cookie);
