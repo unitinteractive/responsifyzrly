@@ -5,7 +5,7 @@
  * A library for generating appropriate images for use in responsive designs
  * This library provideds the methods for producing and serving optimized images
  *
- * @version     X.X.X
+ * @version     0.1.0
  * @copyright   2012 Unit Interactive, LLC - UnitInteractive.com
  * @author      R.A. Ray - RobertAdamRay.com
  * @link        https://github.com/unitinteractive/responsifyzrly
