@@ -36,9 +36,9 @@ Some or all of these may be set globaly at the top of the script:
 ```
 var rspvly = {
 	options : {
-		'speedTestUri' : 				'images/70K.jpg',
-		'speedTestKB' : 				70,
-		'forceRefresh' : 				false
+		'speedTestUri' : 	'images/70K.jpg',
+		'speedTestKB' : 	70,
+		'forceRefresh' : 	false
 	}
 };
 ```
