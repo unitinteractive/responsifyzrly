@@ -1,4 +1,4 @@
-<?
+<?php
 	include('Responsifyzrly.php');
 
 	$base_dir			= realpath('./images');
@@ -20,7 +20,7 @@
 		}
 
 		// check again if it really doesn't exist to protect against race conditions
-		else if (is_dir($cache_dir)) 
+		elseif (is_dir($cache_dir)) 
 		{
 			// save the cache image
 			file_put_contents($cache_image_loc, $cache_image);
@@ -35,4 +35,3 @@
 	
 	// serve the cached image up to the browser
 	$img->show_image($cache_image);
-?>
